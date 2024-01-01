@@ -28,4 +28,4 @@ jobs:
         run: ./gradlew tasks --group=verification
 
       - name: Run the Gradle package task
-        run: ./gradlew -b ci.gradle package
+        run: ./gradlew build
