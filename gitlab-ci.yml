@@ -1,0 +1,19 @@
+# Define the stages of the CI pipeline
+stages:
+  - build
+  - test
+
+# Define the job for building the application
+build:
+  stage: build
+  script:
+    - ./gradlew build  # Replace with your build command
+
+# Define the job for running unit tests
+test:
+  stage: test
+  script:
+    - ./gradlew test  # Replace with your test command
+  artifacts:
+    paths:
+      - build/reports/tests/  # Define paths to test reports or any artifacts you want to keep
