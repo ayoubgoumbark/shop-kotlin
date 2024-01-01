@@ -1,0 +1,34 @@
+stages:
+  - build
+  - test
+
+variables:
+  GRADLE_USER_HOME: "${CI_PROJECT_DIR}/.gradle"
+
+before_script:
+  - chmod +x ./gradlew
+
+build:
+  stage: build
+  image: adoptopenjdk/openjdk11:alpine
+  script:
+    - ./gradlew tasks --group=verification
+    - ./gradlew build
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull-push
+    paths:
+      - .gradle/
+      - build/
+
+test:
+  stage: test
+  image: adoptopenjdk/openjdk11:alpine
+  script:
+    - ./gradlew test
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull-push
+    paths:
+      - .gradle/
+      - build/
