@@ -27,5 +27,8 @@ jobs:
       - name: Validate Gradle wrapper
         run: ./gradlew tasks --group=verification
 
-      - name: Run the Gradle package task
+      - name: Run the Gradle build task
         run: ./gradlew build
+
+      - name: Run tests
+        run: ./gradlew test
