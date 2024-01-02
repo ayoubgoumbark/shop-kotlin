@@ -42,6 +42,20 @@ data class ProductEntity(
 
 ){
     constructor() : this("", "", null,0, BigDecimal.ZERO, ZonedDateTime.now(), ZonedDateTime.now())
-
+    constructor(
+        sku: String,
+        name: String,
+        description: String?,
+        stock: Int,
+        price: BigDecimal
+    ) : this(
+        sku,
+        name,
+        description,
+        stock,
+        price,
+        ZonedDateTime.now(),
+        ZonedDateTime.now()
+    )
 
 }

@@ -19,9 +19,9 @@ class ProductService(private val productRepository: ProductRepository) {
     }
 
     fun findProductsBySkus(skus: List<String>): List<ProductResponse> {
-        return skus.flatMap { sku ->
+        return skus.mapNotNull { sku ->
             val productEntity = productRepository.findBySku(sku)
-            productEntity?.let { listOf(it.toProductResponse()) } ?: emptyList()
+            productEntity?.toProductResponse()
         }
     }
 
@@ -33,15 +33,12 @@ class ProductService(private val productRepository: ProductRepository) {
             description = productRequest.description,
             stock = productRequest.stock,
             price = productRequest.price,
-            createdAt = ZonedDateTime.now(),
-            updatedAt = ZonedDateTime.now()
+
         )
 
         val savedProductEntity = productRepository.save(newProductEntity)
         return  savedProductEntity.toProductResponse()
     }
-
-
 
 
     fun updateProduct(sku: String, productUpdateRequest: ProductUpdateRequest): ProductResponse? {
